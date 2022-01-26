@@ -16,4 +16,6 @@ export class PostService {
     this.posts.push(post);
     this.postUpdated.next([...this.posts]);
   }
+
+
 }
