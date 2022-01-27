@@ -7,6 +7,10 @@ export class PostService {
   private posts: Post[] = [];
   private postUpdated = new Subject<Post[]>();
 
+  getPosts() {
+    return [...this.posts];
+  }
+
   getPostUpdateListener() {
     return this.postUpdated.asObservable();
   }
@@ -16,6 +20,4 @@ export class PostService {
     this.posts.push(post);
     this.postUpdated.next([...this.posts]);
   }
-
-
 }
