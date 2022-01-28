@@ -37,5 +37,5 @@ app.get("/api/posts",(req, res, next) => {
     posts: posts
   });
 })
-
+glnAujyIMoIRluO3
 module.exports = app;
