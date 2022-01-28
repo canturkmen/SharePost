@@ -1,6 +1,17 @@
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
 
+const Post = require('./models/post');
+
+mongoose.connect("mongodb+srv://CanTurkmen:glnAujyIMoIRluO3@cluster0.mm4nt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+.then(() => {
+  console.log("Connected to the database.");
+
+})
+.catch(() => {
+  console.log("Failed to connect the database.");
+});
 app.use(express.json());
 
 app.use((req, res, next) =>{
@@ -11,7 +22,11 @@ app.use((req, res, next) =>{
 });
 
 app.post("/api/posts", (req, res, next) => {
-  const post = req.body;
+  const post = new Post({
+    title: req.body.title,
+    content: req.body.content
+  });
+
   console.log(post);
   res.status(201).json({
     message: "Post has been added."
@@ -37,5 +52,5 @@ app.get("/api/posts",(req, res, next) => {
     posts: posts
   });
 })
-glnAujyIMoIRluO3
+
 module.exports = app;
