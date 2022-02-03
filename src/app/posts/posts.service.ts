@@ -22,7 +22,8 @@ export class PostService {
         return {
           title: post.title,
           content: post.content,
-          id: post._id
+          id: post._id,
+          imagePath: post.imagePath
         };
       });
     }))
@@ -41,11 +42,19 @@ export class PostService {
     return this.postUpdated.asObservable();
   }
 
-  addPosts(title: string, content: string){
-    const post: Post = {id: null, title: title, content: content};
-    this.httpClient.post<{message:string, postId: string}>("http://localhost:3000/api/posts", post)
+  addPosts(title: string, content: string, image: File){
+    const post = new FormData();
+    post.append("title", title);
+    post.append("content", content);
+    post.append("image", image, title);
+    this.httpClient.post<{message:string, post: Post}>("http://localhost:3000/api/posts", post)
     .subscribe((responseData) => {
-      post.id = responseData.postId;
+      const post: Post = {
+        id: responseData.post.id,
+        title: title,
+        content: content,
+        imagePath: responseData.post.imagePath
+      };
       this.posts.push(post);
       this.postUpdated.next([...this.posts]);
       this.router.navigate(['/']);
@@ -53,7 +62,7 @@ export class PostService {
   }
 
   updatePost(id: string, title: string, content: string) {
-    const post: Post = {id: id, title: title, content: content};
+    const post: Post = {id: id, title: title, content: content, imagePath: null};
     this.httpClient.put<{message:string}>("http://localhost:3000/api/posts/" + id, post)
     .subscribe((result) => {
       const updatesPosts = [...this.posts];

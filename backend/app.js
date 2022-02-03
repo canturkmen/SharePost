@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const path = require('path');
 const postsRouter = require('./routes/posts')
+
 
 mongoose.connect("mongodb+srv://CanTurkmen:dt41UfIi2ceWPvYp@cluster0.mm4nt.mongodb.net/node-angular?retryWrites=true&w=majority")
 .then(() => {
@@ -13,6 +15,7 @@ mongoose.connect("mongodb+srv://CanTurkmen:dt41UfIi2ceWPvYp@cluster0.mm4nt.mongo
 });
 
 app.use(express.json());
+app.use("/images", express.static(path.join("backend/images")));
 
 app.use((req, res, next) =>{
   res.setHeader("Access-Control-Allow-Origin", "*");
