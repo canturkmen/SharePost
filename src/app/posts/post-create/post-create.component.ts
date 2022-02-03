@@ -1,16 +1,16 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms"
+import { ActivatedRoute, ParamMap } from "@angular/router";
 
-import { mimeType } from './mime-type.validator';
-import { PostService } from '../posts.service';
-import { Post } from '../post.model';
+import { mimeType } from "./mime-type.validator";
+import { PostService } from "../posts.service";
+import { Post } from "../post.model";
 
 @Component(
 {
-  selector: 'app-post-create',
-  templateUrl: './post-create.component.html',
-  styleUrls: ['./post-create.component.css']
+  selector: "app-post-create",
+  templateUrl: "./post-create.component.html",
+  styleUrls: ["./post-create.component.css"]
 })
 
 export class PostCreateComponent implements OnInit
@@ -31,19 +31,19 @@ export class PostCreateComponent implements OnInit
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      'title': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
-      'content': new FormControl(null, {validators: [Validators.required]}),
-      'image': new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeType]})
+      "title": new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
+      "content": new FormControl(null, {validators: [Validators.required]}),
+      "image": new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeType]})
     });
     this.router.paramMap.subscribe((params: ParamMap) => {
-      if(params.has('postId')) {
+      if(params.has("postId")) {
         this.isLoading = true;
-        this.mode = 'edit';
-        this.postId = params.get('postId');
+        this.mode = "edit";
+        this.postId = params.get("postId");
         this.postService.getPost(this.postId).subscribe((response) => {
           this.post = {id: response._id, title: response.title, content: response.content};
           this.isLoading = false;
-          this.form.setValue({'title': response.title, 'content': response.content});
+          this.form.setValue({"title": response.title, "content": response.content});
         });
       }
       else {
@@ -55,8 +55,8 @@ export class PostCreateComponent implements OnInit
 
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({'image': file});
-    this.form.get('image').updateValueAndValidity();
+    this.form.patchValue({"image": file});
+    this.form.get("image").updateValueAndValidity();
 
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
