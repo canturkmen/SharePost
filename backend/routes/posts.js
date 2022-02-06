@@ -1,8 +1,8 @@
 const express = require("express");
 const Post = require("../models/post");
 const multer = require("multer");
-
 const router = express.Router();
+
 const MIME_TYPE_MAP = {
   "image/png": "png",
   "image/jpeg": "jpeg",

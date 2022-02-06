@@ -1,9 +1,10 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const mongoose = require('mongoose');
-const path = require('path');
-const postsRouter = require('./routes/posts')
+const mongoose = require("mongoose");
+const path = require("path");
 
+const postsRouter = require("./routes/posts");
+const userRouter = require("./routes/user");
 
 mongoose.connect("mongodb+srv://CanTurkmen:dt41UfIi2ceWPvYp@cluster0.mm4nt.mongodb.net/node-angular?retryWrites=true&w=majority")
 .then(() => {
@@ -25,5 +26,6 @@ app.use((req, res, next) =>{
 });
 
 app.use("/api/posts/", postsRouter);
+app.use("/api/user/", userRouter);
 
 module.exports = app;
