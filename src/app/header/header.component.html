@@ -5,11 +5,14 @@
     <li>
       <a mat-button routerLinkActive="mat-accent" routerLink="/create">Add New Post</a>
     </li>
-    <li>
+    <li *ngIf="!isAuthenticated">
       <a mat-button routerLinkActive="mat-accent" routerLink="/login">Login</a>
     </li>
-    <li>
+    <li *ngIf="!isAuthenticated">
       <a mat-button routerLinkActive="mat-accent" routerLink="/signup">Sign up</a>
+    </li>
+    <li *ngIf="isAuthenticated">
+      <button mat-button>Logout</button>
     </li>
   </ul>
 </mat-toolbar>
