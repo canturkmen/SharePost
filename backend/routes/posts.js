@@ -40,6 +40,11 @@ router.post("", checkAuth, multer({storage: storage}).single("image"), (req, res
       message: "Post has been added.",
       post: {...storedData, id: storedData._id}
     });
+  })
+  .catch((error) => {
+    res.status(500).json({
+      message: "Failed to save the post !"
+    })
   });
 });
 
@@ -62,6 +67,11 @@ router.get("",(req, res, next) => {
         posts: fetchedDocuments,
         maxPosts: count
       });
+    })
+  })
+  .catch((error) => {
+    res.status(500).json({
+      message: "Failed to fetch the posts !"
     })
   });
 })
@@ -98,6 +108,11 @@ router.put("/:id", checkAuth, multer({storage: storage}).single("image"), (req, 
     } else {
       res.status(401).json({ message: "Not authorized for editing the post."})
     }
+  })
+  .catch((error) => {
+    res.status(500).json({
+      message: "Failed to update the post !"
+    })
   });
 })
 
@@ -112,6 +127,11 @@ router.delete("/:id", checkAuth, (req, res, next) => {
         message: "Not authorized for deleting the post."
       })
     }
+  })
+  .catch((error) => {
+    res.status(500).json({
+      message: "Failed to delete the post !"
+    })
   });
 })
 
