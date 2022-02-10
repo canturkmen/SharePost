@@ -64,9 +64,10 @@ exports.updatePosts = (req, res, next) => {
     imagePath: imagePath,
     creator: req.userData.userId
   });
-
+  console.log(post);
   Post.updateOne({_id: req.params.id, creator: req.userData.userId}, post).then((result) => {
-    if(result.n > 0) {
+    console.log(result);
+    if(result.matchedCount > 0) {
       res.status(200).json({ message: "Post edited successfully."});
     } else {
       res.status(401).json({ message: "Not authorized for editing the post."})
@@ -92,7 +93,7 @@ exports.getPost =  (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   Post.deleteOne({_id: req.params.id, creator: req.userData.userId}).then((result) => {
-    if(result.n > 0) {
+    if(result.matchedCount > 0) {
       res.status(200).json({
         message: "Post Deleted successfully"
       });
