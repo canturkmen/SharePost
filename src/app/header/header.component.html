@@ -3,13 +3,13 @@
   <span class="space"></span>
   <ul>
     <li>
-      <a mat-button routerLinkActive="mat-accent" routerLink="/create">Add New Post</a>
+      <a mat-button routerLinkActive="mat-accent" routerLink="/auth/create">Add New Post</a>
     </li>
     <li *ngIf="!isAuthenticated">
-      <a mat-button routerLinkActive="mat-accent" routerLink="/login">Login</a>
+      <a mat-button routerLinkActive="mat-accent" routerLink="/auth/login">Login</a>
     </li>
     <li *ngIf="!isAuthenticated">
-      <a mat-button routerLinkActive="mat-accent" routerLink="/signup">Sign up</a>
+      <a mat-button routerLinkActive="mat-accent" routerLink="/auth/signup">Sign up</a>
     </li>
     <li *ngIf="isAuthenticated">
       <button mat-button (click)="onLogout()">Logout</button>

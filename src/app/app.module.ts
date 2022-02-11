@@ -8,7 +8,6 @@ import { AngularMaterialModule } from './angular-material.module';
 
 import { AppComponent } from './app.component';
 import { PostModule } from './posts/post.module';
-import { AuthModule } from './auth/auth.module';
 import { HeaderComponent } from './header/header.component';
 import { ErrorComponent } from './error/error.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -25,7 +24,6 @@ import { ErrorInterceptor } from './error-interceptor';
     BrowserModule,
     BrowserAnimationsModule,
     PostModule,
-    AuthModule,
     HttpClientModule,
     AppRoutingModule,
     AngularMaterialModule
